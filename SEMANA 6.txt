@@ -1,0 +1,77 @@
+using System;
+
+public class Nodo
+{
+    public int Dato;
+    public Nodo Siguiente;
+
+    public Nodo(int dato)
+    {
+        Dato = dato;
+        Siguiente = null;
+    }
+}
+
+public class ListaEnlazada
+{
+    public Nodo Cabeza;
+
+    public ListaEnlazada()
+    {
+        Cabeza = null;
+    }
+
+    public void Agregar(int dato)
+    {
+        Nodo nuevoNodo = new Nodo(dato);
+        nuevoNodo.Siguiente = Cabeza;
+        Cabeza = nuevoNodo;
+    }
+
+    public void Invertir()
+    {
+        Nodo anterior = null;
+        Nodo actual = Cabeza;
+        Nodo siguiente;
+
+        while (actual != null)
+        {
+            siguiente = actual.Siguiente;
+            actual.Siguiente = anterior;
+            anterior = actual;
+            actual = siguiente;
+        }
+        Cabeza = anterior;
+    }
+
+    public void Mostrar()
+    {
+        Nodo actual = Cabeza;
+        while (actual != null)
+        {
+            Console.Write(actual.Dato + " -> ");
+            actual = actual.Siguiente;
+        }
+        Console.WriteLine("null");
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        ListaEnlazada lista = new ListaEnlazada();
+        lista.Agregar(1);
+        lista.Agregar(2);
+        lista.Agregar(3);
+        lista.Agregar(4);
+
+        Console.WriteLine("Lista original:");
+        lista.Mostrar();
+
+        lista.Invertir();
+
+        Console.WriteLine("Lista invertida:");
+        lista.Mostrar();
+    }
+}
