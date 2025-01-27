@@ -1,0 +1,60 @@
+using System;  
+using System.Collections.Generic;  
+
+class Program  
+{  
+    static void Main(string[] args)  
+    {  
+        string expression = "{7+(8*5)-[(9-7)+(4+1)]}";  
+        
+        if (IsBalanced(expression))  
+        {  
+            Console.WriteLine("La fórmula está balanceada.");  
+        }  
+        else  
+        {  
+            Console.WriteLine("La fórmula no está balanceada.");  
+        }  
+    }  
+
+    /// <summary>  
+    /// Verifica si la expresión matemática tiene paréntesis balanceados.  
+    /// </summary>  
+    /// <param name="expression">La cadena de expresión a evaluar.</param>  
+    /// <returns>True si está balanceada, de lo contrario False.</returns>  
+    static bool IsBalanced(string expression)  
+    {  
+        Stack<char> stack = new Stack<char>();  
+        foreach (char c in expression)  
+        {  
+            if (c == '{' || c == '(' || c == '[')  
+            {  
+                stack.Push(c);  
+            }  
+            else if (c == '}' || c == ')' || c == ']')  
+            {  
+                if (stack.Count == 0) return false;  
+                
+                char open = stack.Pop();  
+                if (!IsMatchingPair(open, c))  
+                {  
+                    return false;  
+                }  
+            }  
+        }  
+        return stack.Count == 0;  
+    }  
+
+    /// <summary>  
+    /// Determina si dos paréntesis son un par correspondiente.  
+    /// </summary>  
+    /// <param name="open">El paréntesis de apertura.</param>  
+    /// <param name="close">El paréntesis de cierre.</param>  
+    /// <returns>True si son un par, de lo contrario False.</returns>  
+    static bool IsMatchingPair(char open, char close)  
+    {  
+        return (open == '{' && close == '}') ||   
+               (open == '(' && close == ')') ||   
+               (open == '[' && close == ']');  
+    }  
+}
