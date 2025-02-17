@@ -1,0 +1,82 @@
+using System;  
+using System.Collections.Generic;  
+
+namespace CursoNotas  
+{  
+    // Clase que representa un curso  
+    public class Curso  
+    {  
+        // Propiedad que almacena las asignaturas  
+        public List<string> Asignaturas { get; private set; }  
+        // Propiedad que almacena las notas  
+        public Dictionary<string, double> Notas { get; private set; }  
+
+        // Constructor que inicializa la lista de asignaturas y notas  
+        public Curso()  
+        {  
+            Asignaturas = new List<string>();  
+            Notas = new Dictionary<string, double>();  
+        }  
+
+        // Método para añadir una asignatura  
+        public void AñadirAsignatura(string asignatura)  
+        {  
+            Asignaturas.Add(asignatura);  
+        }  
+
+        // Método para cargar las notas de cada asignatura  
+        public void CargarNotas()  
+        {  
+            foreach (var asignatura in Asignaturas)  
+            {  
+                Console.Write($"Introduce la nota para {asignatura}: ");  
+                double nota;  
+                
+                // Validar la entrada para asegurarse de que es un número  
+                while (!double.TryParse(Console.ReadLine(), out nota) || nota < 0 || nota > 10)  
+                {  
+                    Console.WriteLine("Por favor, introduce una nota válida (entre 0 y 10): ");  
+                }  
+
+                Notas[asignatura] = nota;  
+            }  
+        }  
+
+        // Método para mostrar las asignaturas y las notas  
+        public void MostrarResultados()  
+        {  
+            foreach (var asignatura in Asignaturas)  
+            {  
+                if (Notas.ContainsKey(asignatura))  
+                {  
+                    Console.WriteLine($"En {asignatura} has sacado {Notas[asignatura]}");  
+                }  
+            }  
+        }  
+    }  
+
+    class Program  
+    {  
+        static void Main(string[] args)  
+        {  
+            // Crear una instancia de Curso  
+            Curso curso = new Curso();  
+
+            // Añadir asignaturas  
+            curso.AñadirAsignatura("Matemáticas");  
+            curso.AñadirAsignatura("Física");  
+            curso.AñadirAsignatura("Química");  
+            curso.AñadirAsignatura("Historia");  
+            curso.AñadirAsignatura("Lengua");  
+
+            // Cargar las notas  
+            curso.CargarNotas();  
+
+            // Mostrar los resultados  
+            curso.MostrarResultados();  
+
+            // Esperar a que el usuario presione una tecla  
+            Console.ReadKey();  
+        }  
+    }  
+}

@@ -1,0 +1,71 @@
+using System;  
+using System.Collections.Generic;  
+
+namespace LoteriaPrimitiva  
+{  
+    // Clase que representa el juego de la Lotería Primitiva  
+    public class Loteria  
+    {  
+        // Propiedad que almacena los números ganadores  
+        public List<int> NumerosGanadores { get; private set; }  
+
+        // Constructor que inicializa la lista de números ganadores  
+        public Loteria()  
+        {  
+            NumerosGanadores = new List<int>();  
+        }  
+
+        // Método para agregar un número a la lista  
+        public void AñadirNumero(int numero)  
+        {  
+            NumerosGanadores.Add(numero);  
+        }  
+
+        // Método para mostrar los números ganadores ordenados  
+        public void MostrarNumerosOrdenados()  
+        {  
+            NumerosGanadores.Sort(); // Ordenar la lista de menor a mayor  
+            Console.WriteLine("Números ganadores ordenados:");  
+            foreach (var numero in NumerosGanadores)  
+            {  
+                Console.WriteLine(numero);  
+            }  
+        }  
+    }  
+
+    class Program  
+    {  
+        static void Main(string[] args)  
+        {  
+            // Crear una instancia de Lotería  
+            Loteria loteria = new Loteria();  
+
+            Console.WriteLine("Introduce los números ganadores de la Lotería Primitiva. Escribe '-1' para terminar.");  
+
+            while (true)  
+            {  
+                Console.Write("Introduce un número ganador: ");  
+                string input = Console.ReadLine();  
+                
+                if (int.TryParse(input, out int numero) && numero >= 1 && numero <= 49) // Validar que el número esté entre 1 y 49  
+                {  
+                    loteria.AñadirNumero(numero);  
+                }  
+                else if (numero == -1) // Terminar la entrada de números  
+                {  
+                    break;  
+                }  
+                else  
+                {  
+                    Console.WriteLine("Por favor, introduce un número válido entre 1 y 49, o -1 para terminar.");  
+                }  
+            }  
+
+            // Mostrar los números ganadores ordenados  
+            loteria.MostrarNumerosOrdenados();  
+
+            // Esperar a que el usuario presione una tecla  
+            Console.ReadKey();  
+        }  
+    }  
+}

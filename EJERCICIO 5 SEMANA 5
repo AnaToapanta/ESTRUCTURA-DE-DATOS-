@@ -1,0 +1,53 @@
+using System;
+using System.Collections.Generic;
+
+namespace ListaInversa
+{
+    // Clase principal que contiene el método Main
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Crear una instancia de la clase ListaNumeros
+            ListaNumeros lista = new ListaNumeros();
+
+            // Llenar la lista con números del 1 al 10
+            lista.LlenarLista();
+
+            // Mostrar la lista en orden inverso
+            lista.MostrarListaInversa();
+        }
+    }
+
+    // Clase que maneja la lista de números
+    class ListaNumeros
+    {
+        // Lista para almacenar los números
+        private List<int> numeros;
+
+        // Constructor de la clase
+        public ListaNumeros()
+        {
+            numeros = new List<int>();
+        }
+
+        // Método para llenar la lista con números del 1 al 10
+        public void LlenarLista()
+        {
+            for (int i = 1; i <= 10; i++)
+            {
+                numeros.Add(i);
+            }
+        }
+
+        // Método para mostrar la lista en orden inverso
+        public void MostrarListaInversa()
+        {
+            // Invertir la lista
+            numeros.Reverse();
+
+            // Mostrar los números separados por comas
+            Console.WriteLine(string.Join(", ", numeros));
+        }
+    }
+}
