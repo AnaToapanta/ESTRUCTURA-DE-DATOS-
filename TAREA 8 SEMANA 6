@@ -1,0 +1,15 @@
+public double CalcularPromedio()
+{
+    double suma = 0;
+    int contador = 0;
+    Nodo temp = cabeza;
+
+    while (temp != null)
+    {
+        suma += temp.Dato;
+        contador++;
+        temp = temp.Siguiente;
+    }
+
+    return suma / contador;
+}

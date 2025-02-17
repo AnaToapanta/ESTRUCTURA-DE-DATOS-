@@ -1,0 +1,28 @@
+public void CrearListaAleatoria(int tamaño)
+{
+    Random rand = new Random();
+    for (int i = 0; i < tamaño; i++)
+    {
+        Agregar(rand.Next(1, 1000));
+    }
+}
+
+public void EliminarFueraDeRango(int min, int max)
+{
+    while (cabeza != null && (cabeza.Dato < min || cabeza.Dato > max))
+    {
+        cabeza = cabeza.Siguiente;
+    }
+
+    Nodo temp = cabeza;
+    while (temp != null && temp.Siguiente != null)
+    {
+        if (temp.Siguiente.Dato < min || temp.Siguiente.Dato > max)
+        {
+            temp.Siguiente = temp.Siguiente.Siguiente;
+        }
+        else
+        {
+            temp = temp.Siguiente;
+        }
+    }

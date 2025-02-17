@@ -1,0 +1,17 @@
+class Vehiculo
+{
+    public string Placa;
+    public string Marca;
+    public string Modelo;
+    public int Año;
+    public double Precio;
+
+    public Vehiculo(string placa, string marca, string modelo, int año, double precio)
+    {
+        Placa = placa;
+        Marca = marca;
+        Modelo = modelo;
+        Año = año;
+        Precio = precio;
+    }
+}

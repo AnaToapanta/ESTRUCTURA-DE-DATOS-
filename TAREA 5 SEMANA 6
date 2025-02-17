@@ -1,0 +1,25 @@
+public bool EsPrimo(int numero)
+{
+    if (numero < 2) return false;
+    for (int i = 2; i * i <= numero; i++)
+    {
+        if (numero % i == 0) return false;
+    }
+    return true;
+}
+
+public bool EsArmstrong(int numero)
+{
+    int suma = 0;
+    int temp = numero;
+    int longitud = numero.ToString().Length;
+
+    while (temp != 0)
+    {
+        int digito = temp % 10;
+        suma += (int)Math.Pow(digito, longitud);
+        temp /= 10;
+    }
+
+    return suma == numero;
+}

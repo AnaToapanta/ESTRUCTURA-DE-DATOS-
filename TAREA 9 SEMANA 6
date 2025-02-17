@@ -1,0 +1,17 @@
+public bool SonIguales(ListaEnlazada otraLista)
+{
+    Nodo temp1 = cabeza;
+    Nodo temp2 = otraLista.cabeza;
+
+    while (temp1 != null && temp2 != null)
+    {
+        if (temp1.Dato != temp2.Dato)
+        {
+            return false;
+        }
+        temp1 = temp1.Siguiente;
+        temp2 = temp2.Siguiente;
+    }
+
+    return temp1 == null && temp2 == null;
+}
