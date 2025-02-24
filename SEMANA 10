@@ -1,0 +1,62 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+
+class Program
+{
+    static void Main()
+    {
+        // Generamos el conjunto total de ciudadanos
+        HashSet<string> conjuntoTotal = new HashSet<string>();
+        for (int i = 1; i <= 500; i++)
+        {
+            conjuntoTotal.Add("Ciudadano " + i);
+        }
+
+        // Generamos los conjuntos de ciudadanos vacunados
+        HashSet<string> conjuntoPfizer = new HashSet<string>();
+        HashSet<string> conjuntoAstrazeneca = new HashSet<string>();
+
+        Random random = new Random();
+        while (conjuntoPfizer.Count < 75)
+        {
+            conjuntoPfizer.Add("Ciudadano " + random.Next(1, 501));
+        }
+        while (conjuntoAstrazeneca.Count < 75)
+        {
+            conjuntoAstrazeneca.Add("Ciudadano " + random.Next(1, 501));
+        }
+
+        // Operaciones de conjuntos
+        HashSet<string> noVacunados = new HashSet<string>(conjuntoTotal);
+        noVacunados.ExceptWith(conjuntoPfizer);
+        noVacunados.ExceptWith(conjuntoAstrazeneca);
+
+        HashSet<string> vacunadosAmbas = new HashSet<string>(conjuntoPfizer);
+        vacunadosAmbas.IntersectWith(conjuntoAstrazeneca);
+
+        HashSet<string> soloPfizer = new HashSet<string>(conjuntoPfizer);
+        soloPfizer.ExceptWith(conjuntoAstrazeneca);
+
+        HashSet<string> soloAstrazeneca = new HashSet<string>(conjuntoAstrazeneca);
+        soloAstrazeneca.ExceptWith(conjuntoPfizer);
+
+        // Generación del reporte en PDF
+        Document doc = new Document();
+        PdfWriter.GetInstance(doc, new System.IO.FileStream("ReporteVacunacion.pdf", System.IO.FileMode.Create));
+        doc.Open();
+
+        doc.Add(new Paragraph("Reporte de Campaña de Vacunación COVID-19"));
+        doc.Add(new Paragraph("========================================"));
+        doc.Add(new Paragraph("Ciudadanos no vacunados: " + noVacunados.Count));
+        doc.Add(new Paragraph("Ciudadanos vacunados con ambas vacunas: " + vacunadosAmbas.Count));
+        doc.Add(new Paragraph("Ciudadanos vacunados solo con Pfizer: " + soloPfizer.Count));
+        doc.Add(new Paragraph("Ciudadanos vacunados solo con AstraZeneca: " + soloAstrazeneca.Count));
+
+        doc.Close();
+
+        Console.WriteLine("Reporte generado exitosamente!");
+    }
+}
